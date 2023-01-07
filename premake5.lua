@@ -15,7 +15,8 @@ project "GLFW"
         "src/input.c",
         "src/monitor.c",
         "src/vulkan.c",
-        "src/window.c"
+        "src/window.c",
+	"src/platform.c",
     }
 
 	filter "system:windows"
@@ -31,6 +32,7 @@ project "GLFW"
             "src/win32_time.c",
             "src/win32_thread.c",
             "src/win32_window.c",
+	    "src/win32_module.c",
             "src/wgl_context.c",
             "src/egl_context.c",
             "src/osmesa_context.c"
