@@ -20,8 +20,6 @@ project "GLFW"
 		"src/null_joystick.c",
 		"src/null_monitor.c",
 		"src/null_window.c",
-		"src/platform.c",
-
 
 		"src/platform.c",
 		"src/vulkan.c",
