@@ -1,11 +1,10 @@
 project "GLFW"
 	kind "StaticLib"
 	language "C"
-	staticruntime "off"
-
+	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
+	
 	files
 	{
 		"include/GLFW/glfw3.h",
@@ -24,12 +23,15 @@ project "GLFW"
 		"src/platform.c",
 		"src/vulkan.c",
 		"src/window.c",
+		"src/egl_context.c",
+		"src/osmesa_context.c"
 	}
 
 	filter "system:linux"
 		pic "On"
-
+		
 		systemversion "latest"
+		staticruntime "On"
 		
 		files
 		{
@@ -44,15 +46,21 @@ project "GLFW"
 			"src/osmesa_context.c",
 			"src/linux_joystick.c"
 		}
-
+		
 		defines
 		{
 			"_GLFW_X11"
+		
 		}
-
+		
 	filter "system:windows"
 		systemversion "latest"
-
+		staticruntime "On"
+		
+		-- buildoptions{
+		--     "/MT"
+		-- }
+		
 		files
 		{
 			"src/win32_init.c",
@@ -66,27 +74,18 @@ project "GLFW"
 			"src/egl_context.c",
 			"src/osmesa_context.c"
 		}
-
-		defines 
-		{ 
+		
+		defines
+		{
 			"_GLFW_WIN32",
 			"_CRT_SECURE_NO_WARNINGS"
+		
 		}
-
-		links
-		{
-			"Dwmapi.lib"
-		}
-
+		
 	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
+	runtime "Debug"
+	symbols "On"
+	
 	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		runtime "Release"
-		optimize "on"
-        symbols "off"
+	runtime "Release"
+	optimize "On"
